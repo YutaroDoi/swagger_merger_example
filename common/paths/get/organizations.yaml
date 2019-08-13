@@ -1,0 +1,37 @@
+/common/v1/organizations:
+    get:
+      tags:
+        - /common
+      summary: BFF_CMN_00011 組織一覧取得API
+      description: |-
+        ## API概要
+        有効な組織の一覧を返却
+
+        ---
+        ## バリデーション
+        - 参照権限がない場合は403
+
+        ---
+        ## SS API
+        - common-service/組織一覧取得API
+      responses:
+        '200':
+          description: 組織一覧を返却
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  organizations:
+                    type: array
+                    description: |-
+                      有効な組織のリスト
+                      有効とは削除区分が0:未削除のものを指す
+                    items:
+                      $ref: "#/components/schemas/Organization"
+        "403":
+          description: エラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"

@@ -1,0 +1,16 @@
+Error:
+  description: |-
+    - エラー用のモデル
+      - 項目に非依存なエラーはmessagesに格納
+      - 項目ごとのエラーはdetailsに格納
+  type: object
+  properties:
+    messages:
+      type: array
+      items:
+        type: string
+      example: ["権限が不足しています"]
+    details:
+      type: array
+      items:
+        $ref: "#/components/schemas/FieldError"

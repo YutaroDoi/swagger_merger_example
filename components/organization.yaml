@@ -1,0 +1,32 @@
+Organization:
+  description: 組織
+  type: object
+  properties:
+    organization_id:
+      description: 組織ID
+      type: integer
+      format: int32
+    organization_name:
+      description: 組織名
+      type: string
+    parent_organization_id:
+      description: 親組織ID
+      type: integer
+      format: int32
+    delete_type:
+      description: 削除区分(0:未削除 1:削除 2:統合)
+      type: integer
+    integration_id:
+      description: |-
+        統合先ID
+        delete_typeが2:統合の時のみ統合先のIDが返される
+        統合先の組織情報が欲しい場合はIDを指定して再取得すること
+      type: integer
+      format: int32
+    keyword:
+      description: キーワード
+      type: string
+  required:
+    - organization_id
+    - organization_name
+    - delete_type

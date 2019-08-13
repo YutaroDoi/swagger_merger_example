@@ -1,0 +1,14 @@
+FieldError:
+  description: 項目ごとのエラー
+  type: object
+  properties:
+    field_name:
+      type: string
+      description: 項目名
+      example: email
+    field_messages:
+      type: array
+      description: 項目に対するエラーメッセージ配列
+      items:
+        type: string
+      example: ["不正な文字が入っています", "30文字以内にしてください"]
