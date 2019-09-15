@@ -1,53 +1,39 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: GYRO BFF API
-  description: GYROのBFF（Backends For Frontends）のAPI
+  title: HOGE API
+  description: HOGE API
 servers:
-  - url: 'https://api.development.bst-gyro.work'
+  - url: 'https://api.dev.hoge.com'
     description: 開発環境
-  - url: 'https://api.staging.bst-gyro.work'
+  - url: 'https://api.staging.hoge.com'
     description: 検証環境
-  - url: 'https://api.bst-gyro.work'
+  - url: 'https://api.hoge.com'
     description: 本番環境
 security:
   - bearerAuth: []
 tags:
-  - name: /common
-  - name: /assessment
-  - name: /reservation
+  - name: /fuga
 paths:
-  /common/v1/organizations:
+  /fuga/books/{id}:
     get:
       tags:
-        - /common
-      summary: BFF_CMN_00011 組織一覧取得API
+        - /fuga
+      summary: 本情報取得
       description: |-
         ## API概要
-        有効な組織の一覧を返却
+        本情報を返却
 
         ---
         ## バリデーション
         - 参照権限がない場合は403
-
-        ---
-        ## SS API
-        - common-service/組織一覧取得API
       responses:
         '200':
-          description: 組織一覧を返却
+          description: 本情報を返却
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  organizations:
-                    type: array
-                    description: |-
-                      有効な組織のリスト
-                      有効とは削除区分が0:未削除のものを指す
-                    items:
-                      $ref: '#/components/schemas/Organization'
+                $ref: '#/components/schemas/Book'
         '403':
           description: エラー
           content:
@@ -55,11 +41,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
   schemas:
     Error:
       description: |-
@@ -78,83 +59,5 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/FieldError'
-    FieldError:
-      description: 項目ごとのエラー
-      type: object
-      properties:
-        field_name:
-          type: string
-          description: 項目名
-          example: email
-        field_messages:
-          type: array
-          description: 項目に対するエラーメッセージ配列
-          items:
-            type: string
-          example:
-            - 不正な文字が入っています
-            - 30文字以内にしてください
-    Organization:
-      description: 組織
-      type: object
-      properties:
-        organization_id:
-          description: 組織ID
-          type: integer
-          format: int32
-        organization_name:
-          description: 組織名
-          type: string
-        parent_organization_id:
-          description: 親組織ID
-          type: integer
-          format: int32
-        delete_type:
-          description: '削除区分(0:未削除 1:削除 2:統合)'
-          type: integer
-        integration_id:
-          description: |-
-            統合先ID
-            delete_typeが2:統合の時のみ統合先のIDが返される
-            統合先の組織情報が欲しい場合はIDを指定して再取得すること
-          type: integer
-          format: int32
-        keyword:
-          description: キーワード
-          type: string
-      required:
-        - organization_id
-        - organization_name
-        - delete_type
-    OrganizationImitation:
-      description: 組織
-      type: object
-      properties:
-        organization_id:
-          description: 組織ID
-          type: integer
-          format: int32
-        organization_name:
-          description: 組織名
-          type: string
-        parent_organization_id:
-          description: 親組織ID
-          type: integer
-          format: int32
-        delete_type:
-          description: '削除区分(0:未削除 1:削除 2:統合)'
-          type: integer
-        integration_id:
-          description: |-
-            統合先ID
-            delete_typeが2:統合の時のみ統合先のIDが返される
-            統合先の組織情報が欲しい場合はIDを指定して再取得すること
-          type: integer
-          format: int32
-        keyword:
-          description: キーワード
-          type: string
-      required:
-        - organization_id
-        - organization_name
-        - delete_type
+   Book:
+
